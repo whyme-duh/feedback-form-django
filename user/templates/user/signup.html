@@ -1,0 +1,53 @@
+{% extends 'app/index.html'%}
+{% load widget_tweaks %}
+{% block content %}
+<div class="auth-container">
+    <div class="form-side" id="sign-up-side">
+        <h1>Create Account</h1>
+        <p class="subtitle">Join us to manage reservations and earn exclusive benefits.</p>
+        
+        <form method="POST" >
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="signup-name">User</label>
+                {% render_field form.username class="form-control" placeholder="Enter Your Username" type="text" %}
+
+            </div>
+            <div class="form-group">
+                <label for="signup-email">Email Address</label>
+                {% render_field form.email class="form-control" placeholder="Enter Email" type="text" %}
+            </div>
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                {% render_field form.password1 class="form-control" placeholder="Enter Password" type="password" %}
+            </div>
+            <div class="form-group">
+                <label for="signup-password">Confirm Password</label>
+                {% render_field form.password2 class="form-control" placeholder="Enter Password Again" type="password" %}
+
+            </div>
+            {% if form.errors %}
+              <div class="alert alert-danger">
+                {% for key, val in form.errors.items %}
+                  <p>{{val}}</p>
+                {% endfor %}
+              </div>
+              {% else %}
+              {% endif %}
+            <button type="submit" class="btn" style="margin-top: 10px;">Sign Up</button>
+        </form>
+    </div>
+    <div class="info-side" id="info-side">
+        
+        <div id="info-content-signup">
+            <h2>Welcome Back!</h2>
+            <p>To keep connected with your booking details, please log in here.</p>
+            <a href= "{% url 'signin' %}" class="btn-outline">Sign In</a>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

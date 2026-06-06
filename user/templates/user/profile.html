@@ -1,0 +1,45 @@
+{% extends 'app/index.html' %}
+{% block content %}
+<div class="profile-container">
+        <div class="profile-card">
+            
+            <!-- Graphic cover top banner -->
+            <div class="profile-cover"></div>
+            
+            <div class="profile-body">
+                <!-- Avatar placeholder using initials instead of an external image link -->
+                <div class="avatar-container">JD</div>
+                
+                <h1>John Doe</h1>
+                <span class="membership-badge">Premium Member</span>
+                
+                <!-- Profile Data Fields -->
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Email Address</label>
+                        <p>john.doe@example.com</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Phone Number</label>
+                        <p>+977 9801234567</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Member Since</label>
+                        <p>January 2024</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Total Bookings</label>
+                        <p>12 Reservations</p>
+                    </div>
+                </div>
+                
+                <!-- Interactive Action Row -->
+                <div class="profile-actions">
+                    <button class="btn btn-primary" onclick="alert('Edit functionality coming soon!')">Edit Profile</button>
+                    <button class="btn btn-secondary" onclick="alert('Redirecting to your booking history...')">View Bookings</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

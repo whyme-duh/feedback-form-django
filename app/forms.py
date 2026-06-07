@@ -28,6 +28,7 @@ class FeedbackFormField(forms.ModelForm):
             'problem_during_stay': forms.RadioSelect,
             'if_yes_problem_solved_promptly_or_not': forms.RadioSelect,
             'satisfied_with_overall_aspect_of_hospital': forms.RadioSelect,
+            'would_you_share_or_not': forms.RadioSelect,
             
             'if_no_specify_reason': forms.Textarea(attrs={'rows': 3}),
             'if_not_room_clean': forms.Textarea(attrs={'rows': 3}),

@@ -271,8 +271,8 @@
 
         <div class="question-row">
             <div class="question-text">7. Did you wish to tell about friendly staff/services area for outstanding services? <span>(के तपाई हाम्रो अस्पतालको कुनै उत्कृष्ट कर्मचारी/कार्यक्षेत्रको बारेमा भन्न चाहनुहुन्छ ?)</span></div>
-            <div class="pill-box-group">
-                {% for radio in form.outstanding_service_staff_choice %}
+            <div class="pill-box-group" id="sharable-or-not">
+                {% for radio in form.would_you_share_or_not %}
                     <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
                 {% endfor %}
             </div>
@@ -280,7 +280,8 @@
 
         <div class="field-wrapper" style="margin-top: 10px;">
             <label>If Yes, specify: / <span>(यदि चाहनुहुन्छ भने प्रष्ट पार्नुहोस्)</span></label>
-            {% render_field form.sharing_with_friend_if_yes class="textarea-input" rows="2" %}
+            {% render_field form.sharing_with_friend_if_yes class="textarea-input" rows="2" data-toggle-group="sharable-or-not" data-trigger-value="Yes" disabled="disabled" %}
+
         </div>
 
         <div class="field-wrapper" style="margin-top: 20px;">

@@ -1,4 +1,299 @@
 {% extends 'app/index.html' %}
-{% block content %}
+{% load static %}
+{% load widget_tweaks %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'app/feedback.css' %}">
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="hospital-header">
+        <h1>EVEREST HOSPITAL PVT. LTD.</h1>
+        <div class="location">New Baneshwor, Kathmandu</div>
+    </div>
+    
+    <div class="form-title">In - Patient Feedback Form</div>
+
+    <form method="POST" class="form-content">
+        {% csrf_token %}
+
+        <div class="meta-grid">
+            <div class="field-wrapper">
+                <label>1. Name / <span>नाम:</span></label>
+                {% render_field form.full_name class="input-text" placeholder="Full Name" %}
+            </div>
+            <div class="field-wrapper">
+                <label>2. Sex / <span>लिङ्ग:</span></label>
+                <div class="pill-box-group" style="width: 100%; justify-content: flex-start; margin-top: 2px;">
+                    {% for radio in form.sex %}
+                        <div class="pill-item">
+                            {{ radio.tag }}
+                            <label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <label>3. Bed No. / <span>शय्या नं.:</span></label>
+                {% render_field form.bed_no class="input-text" %}
+            </div>
+        </div>
+
+        <div class="meta-row-2">
+            <div class="field-wrapper">
+                <label>4. IP Number / <span>आई. पि. नं.:</span></label>
+                {% render_field form.ip_number class="input-text" %}
+            </div>
+            <div class="field-wrapper">
+                <label>5. Signature / <span>हस्ताक्षर:</span></label>
+                {% render_field form.Signature class="input-text" %}
+            </div>
+        </div>
+
+        <div class="section-header">
+            ❖ About Hospital <span>(हस्पिटलको बारेमा)</span>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">1. Sanitation of Hospital <span>(हस्पिटलको सरसफाई)</span></div>
+            <div class="pill-box-group">
+                {% for radio in form.hospital_sanitaion %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">2. Care & Co-operation of Administrator <span>(हस्पिटलको प्रशासन व्यवहार)</span></div>
+            <div class="pill-box-group">
+                {% for radio in form.care_co_opp_of_administrator %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">3. Promptness of Services <span>(कार्यदक्षता)</span></div>
+            <div class="pill-box-group">
+                {% for radio in form.promptness_of_service %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="section-header">
+            ❖ About Medical Staff <span>(चिकित्सक तथा नर्सको बारेमा)</span>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">1. Response of the Doctor <span>(डाक्टरको व्यवहार)</span></div>
+            <div class="pill-box-group">
+                {% for radio in form.doctor_response %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">2. Were you satisfied with Doctor's explanation? <span>(चिकित्सकद्वारा दिईएको सल्लाहबाट तपाई सन्तुष्ट हुनुहुन्छ ?)</span></div>
+            <div class="pill-box-group">
+                {% for radio in form.satisfied_with_doctor_explanation %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">3. Were you satisfied by nursing services? <span>...</span></div>
+            <div class="pill-box-group" id="nurse-service-options">
+                {% for radio in form.satisfied_by_nurse_service %}
+                    {% if radio.data.value != '' %}
+                        <div class="pill-item">
+                            {{ radio.tag }}
+                            <label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="field-wrapper" style="margin-top: 15px;">
+            <label>If Not, specify: / <span>...</span></label>
+            {% render_field form.if_no_specify_reason class="textarea-input" rows="2" data-toggle-group="nurse-service-options" data-trigger-value="No" disabled="disabled" %}
+        </div>
+
+        <div class="section-header">
+            ❖ About Room <span>(कोठाको बारेमा)</span>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">1. Sanitation of Room <span>(कोठाको सरसफाई)</span></div>
+            <div class="pill-box-group">
+                {% for radio in form.room_sanitation %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">2. Bathroom Cleanliness <span>(शौचालयको सफाई)</span></div>
+            <div class="pill-box-group">
+                {% for radio in form.bathroom_cleanliness %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">3. Was everything in your room & rest room functioning Properly? <span>(के तपाईको कोठा र शौचालयको सबै साधनहरु चालु अवस्थामा थिए ?)</span></div>
+            <div class="pill-box-group" id="everythin-clean-or-not">
+                {% for radio in form.everythin_clean_or_not %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="field-wrapper" style="margin-top: 15px;">
+            <label>If Not, specify: / <span>(थिएन भने प्रष्ट पार्नुहोस्)</span></label>
+            {% render_field form.if_not_room_clean class="textarea-input" rows="2" data-toggle-group="everythin-clean-or-not" data-trigger-value="No" disabled="disabled" %}
+
+        </div>
+
+        <div class="section-header">
+            ❖ About Emergency Services <span>(आकस्मिक सेवाको बारेमा)</span>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">1. Cleanliness of the ward <span>(वार्डको सरसफाई)</span></div>
+            <div class="pill-box-group">
+                {% for radio in form.ward_cleanliness %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">2. Promptness of Service <span>(कार्यदक्षता)</span></div>
+            <div class="pill-box-group">
+                {% for radio in form.service_promptness_emegency_service %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="section-header">
+            ❖ About Ambulance Services <span>(एम्बुलेन्स सेवा बारे)</span>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">1. Did the Ambulance arrive on time? <span>(के एम्बुलेन्स सेवा तपाईलाई चाहिएको समयमा पुग्यो ?)</span></div>
+            <div class="pill-box-group">
+                {% for radio in form.arrival_of_ambulance %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">2. Was the Ambulance internal service satisfactory? <span>(के एम्बुलेन्स सेवा तपाईलाई सन्तोषजनक पाउनुभयो ?)</span></div>
+            <div class="pill-box-group">
+                {% for radio in form.satisfaction_with_ambulance_internal_service %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="section-header">
+            ❖ General Services <span>(सामान्य सेवाहरूको बारेमा)</span>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">1. Pharmacy <span>(औषधि बिक्रिवितरण कक्ष)</span></div>
+            <div class="pill-box-group">
+                {% for radio in form.pharmacy %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">2. X-Ray/USG/ECHO/Pathology/Endoscopy/Physio <span>(एक्स-रे/युएसजी/ईको/प्याथोलोजी/इन्डोस्कोपी/फिजियो)</span></div>
+            <div class="pill-box-group">
+                {% for radio in form.x_ray_usg_echo_pathology_endoscopy_physio %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">3. ICU/O.T. <span>(आईसीयू/ओ.टी.)</span></div>
+            <div class="pill-box-group">
+                {% for radio in form.ICU_OT %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">4. Did you find any problem during your stay? <span>(उपचारको क्रममा तपाईलाई कुनै समस्या भयो ?)</span></div>
+            <div class="pill-box-group" id="find-any-problem">
+                {% for radio in form.problem_during_stay %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="field-wrapper" style="margin-top: 10px;">
+            <label>If Yes, specify: / <span>(भएको भए प्रष्ट पार्नुहोस्)</span></label>
+            {% render_field form.if_yes_specify_reason class="textarea-input" rows="2" data-toggle-group="find-any-problem" data-trigger-value="Yes" disabled="disabled" %}
+
+        </div>
+
+        <div class="question-row" style="margin-top: 15px;">
+            <div class="question-text">5. If yes, was the problem solved promptly? <span>(यदि भएको भए त्यसको तुरुन्त समाधान भयो ?)</span></div>
+            <div class="pill-box-group">
+                {% for radio in form.if_yes_problem_solved_promptly_or_not %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">6. Are you satisfied in overall aspects of the Hospital? <span>(के तपाई अस्पतालको सबै पक्षबाट सन्तुष्ट हुनुभयो ?)</span></div>
+            <div class="pill-box-group">
+                {% for radio in form.satisfied_with_overall_aspect_of_hospital %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">7. Did you wish to tell about friendly staff/services area for outstanding services? <span>(के तपाई हाम्रो अस्पतालको कुनै उत्कृष्ट कर्मचारी/कार्यक्षेत्रको बारेमा भन्न चाहनुहुन्छ ?)</span></div>
+            <div class="pill-box-group">
+                {% for radio in form.outstanding_service_staff_choice %}
+                    <div class="pill-item">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="field-wrapper" style="margin-top: 10px;">
+            <label>If Yes, specify: / <span>(यदि चाहनुहुन्छ भने प्रष्ट पार्नुहोस्)</span></label>
+            {% render_field form.sharing_with_friend_if_yes class="textarea-input" rows="2" %}
+        </div>
+
+        <div class="field-wrapper" style="margin-top: 20px;">
+            <label>8. How could we make you comfortable in Hospital, if any further suggestions? <span style="display:inline;">/ (हामीले तपाई बसाई कसरी व्यवस्थित पार्न सक्छौँ ? कुनै सुझावहरु भए दिनुहोस् । साथै अन्य समस्या भए प्रष्ट पारिदिनुहोस् ।)</span></label>
+            {% render_field form.recommendation_for_hospital class="textarea-input" rows="4" %}
+        </div>
+
+        <div class="footer-notice">
+            <p class="nepali">यो फारम भरेर आफ्नो अमूल्य सुझाव दिई अस्पताल सेवा सुधारमा सहयोग गर्न आग्रह गर्दछौँ ।</p>
+            <p>Thank you for choosing Everest Hospital</p>
+        </div>
+
+        <button type="submit" class="btn-submit">Submit Internal Feedback Document</button>
+    </form>
+</div>
 {% endblock %}

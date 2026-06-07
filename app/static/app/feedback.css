@@ -215,3 +215,6 @@
     .question-text, .pill-box-group { width: 100%; justify-content: flex-start; }
     .pill-label { flex-grow: 1; }
 }
+.already-submitted{
+    margin-top:5em;
+}

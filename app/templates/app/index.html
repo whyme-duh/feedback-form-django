@@ -18,10 +18,7 @@
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'feedback' %}">Feedback Form</a></li>
                 <li><a href="{% url 'profile' %}">Profile</a></li>
-                <form action = "{%url 'logout' %}" method = "POST">
-                    {% csrf_token %}
-                    <button>Logout</button>
-                </form>
+                
                 {% else %}
                 <li><a href="{% url 'signin' %}">Sign In</a></li>
                 <li><a href="{% url 'signup' %}">Sign Up</a></li>
@@ -31,6 +28,25 @@
         </nav>
     </header>
     <main>
+        {% if messages %}
+        <div class="toast-container">
+            {% for message in messages %}
+                <div class="toast {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <script>
+            setTimeout(function() {
+                let toasts = document.querySelectorAll('.toast');
+                toasts.forEach(toast => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                });
+            }, 4000);
+        </script>
+        {% endif %}
         {% block content %}
         {% endblock %}
     </main>

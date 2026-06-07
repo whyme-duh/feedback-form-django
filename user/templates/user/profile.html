@@ -1,45 +1,78 @@
 {% extends 'app/index.html' %}
 {% block content %}
-<div class="profile-container">
-        <div class="profile-card">
-            
-            <!-- Graphic cover top banner -->
-            <div class="profile-cover"></div>
-            
-            <div class="profile-body">
-                <!-- Avatar placeholder using initials instead of an external image link -->
-                <div class="avatar-container">JD</div>
-                
-                <h1>John Doe</h1>
-                <span class="membership-badge">Premium Member</span>
-                
-                <!-- Profile Data Fields -->
-                <div class="info-grid">
-                    <div class="info-item">
-                        <label>Email Address</label>
-                        <p>john.doe@example.com</p>
-                    </div>
-                    <div class="info-item">
-                        <label>Phone Number</label>
-                        <p>+977 9801234567</p>
-                    </div>
-                    <div class="info-item">
-                        <label>Member Since</label>
-                        <p>January 2024</p>
-                    </div>
-                    <div class="info-item">
-                        <label>Total Bookings</label>
-                        <p>12 Reservations</p>
-                    </div>
-                </div>
-                
-                <!-- Interactive Action Row -->
-                <div class="profile-actions">
-                    <button class="btn btn-primary" onclick="alert('Edit functionality coming soon!')">Edit Profile</button>
-                    <button class="btn btn-secondary" onclick="alert('Redirecting to your booking history...')">View Bookings</button>
-                </div>
-            </div>
-
+<div class="dashboard-container">
+        
+    <aside class="patient-sidebar">
+        <div class="avatar-circle">
+            {{ request.user.username|slice:":2"|upper }}
         </div>
-    </div>
+        <h2>{{ request.user.get_full_name|default:"Patient Account" }}</h2>
+        <p class="username-tag">@{{ request.user.username }}</p>
+        
+        <div class="meta-info-list">
+            <div class="meta-item">
+                <label>Email Address</label>
+                <p>{{ request.user.email|default:"Not Provided" }}</p>
+            </div>
+            <div class="meta-item">
+                <label>Account Status</label>
+                <p style="color: #2f855a;">✔ Verified Patient</p>
+            </div>
+            <div class="meta-item">
+                <label>Last Login</label>
+                <p style="font-size: 0.85rem; font-weight: normal;">{{ request.user.last_login|date:"M d, Y H:i" }}</p>
+            </div>
+        </div>
+        <form action = "{%url 'logout' %}" method = "POST">
+            {% csrf_token %}
+            <button class=" logout-btn">Logout</button>
+        </form>
+    </aside>
+
+
+    <main class="main-content-panel">
+        <div class="panel-header">
+            <h3>
+                My Feedback Submissions
+                <span>फारम विवरण इतिहास तालिका</span>
+            </h3>
+        </div>
+
+        <div class="history-table-wrapper">
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>Form ID</th>
+                        <th>Patient Name</th>
+                        <th>IP Number</th>
+                        <th>Bed No.</th>
+                        <th style="text-align: right;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if feedback %}
+                    <tr>
+                        <td><strong>#{{ feedback.id }}</strong></td>
+                        <td>{{ feedback.full_name }}</td>
+                        <td>{{ feedback.ip_number }}</td>
+                        <td>{{ feedback.bed_no }}</td>
+                        <td style="text-align: right;">
+                            <a href="{% url 'download_feedback_pdf' feedback.id %}" class="btn-download">
+                                📥 Download PDF
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="empty-state">
+                            <p>You haven't submitted any feedback forms yet.</p>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+</div>
 {% endblock %}

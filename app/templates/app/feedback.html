@@ -8,6 +8,8 @@
 {% endblock %}
 
 {% block content %}
+{% if submitted %}
+
 <div class="container">
     <div class="hospital-header">
         <h1>EVEREST HOSPITAL PVT. LTD.</h1>
@@ -296,5 +298,11 @@
 
         <button type="submit" class="btn-submit">Submit Internal Feedback Document</button>
     </form>
+   
 </div>
+ {% else %}
+    <div class="already-submitted">
+        <h1>Thank you! You have already submitted this form.</h1>
+    </div>
+    {% endif %}
 {% endblock %}

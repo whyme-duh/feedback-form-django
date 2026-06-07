@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.views import LoginView
 from user.forms import UserRegistrationForm
+from app.models import FeedbackForm
 
 
 
@@ -17,4 +18,6 @@ def sign_up(request):
 
 
 def profile(request):
-    return render(request, 'user/profile.html')
+    feedback = FeedbackForm.objects.get(user = request.user)
+
+    return render(request, 'user/profile.html', {'feedback' : feedback})

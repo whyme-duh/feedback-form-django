@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback Record - Everest Hospital</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+        :root {
+            --primary-blue: #004b87;
+            --dark-text: #2c3e50;
+            --sub-nepali: #5a738e;
+            --border-color: #b0cddb;
+        }
+        
+
+       
+        .nepali, span {
+            font-family: 'NotoSansDevanagari' !important;
+        }
+        body {
+            font-family: 'NotoSansDevanagari','Helvetica Neue', Arial, sans-serif;
+            color: var(--dark-text);
+            line-height: 1.4;
+            font-size: 11pt;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #004b87;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #004b87;
+            font-size: 22pt;
+            margin: 0 0 5px 0;
+        }
+        .header .sub { font-size: 11pt; font-weight: bold; }
+        .title {
+            text-align: center;
+            font-size: 14pt;
+            font-weight: bold;
+            color: #004b87;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .meta-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
+        .meta-table td {
+            padding: 8px;
+            border-bottom: 1px solid #b0cddb;
+        }
+        .meta-label { font-weight: bold; width: 25%; }
+        .meta-label span, .section-header span {
+            font-size: 9pt;
+            color: var(--sub-nepali);
+            font-weight: normal;
+        }
+        .section-header {
+            background-color: #e6f0f7;
+            color: #004b87;
+            padding: 6px 10px;
+            font-size: 11pt;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-left: 4px solid #004b87;
+        }
+        .record-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 5px;
+            border-bottom: 1px dashed #d0e1ed;
+        }
+        .question { width: 70%; }
+        .answer { width: 30%; text-align: right; font-weight: bold; color: #004b87; }
+        .open-response {
+            margin-top: 8px;
+            padding: 8px;
+            background-color: #f9fbfd;
+            border-left: 2px solid #b0cddb;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>EVEREST HOSPITAL PVT. LTD.</h1>
+        <div class="sub">New Baneshwor, Kathmandu</div>
+    </div>
+    
+    <div class="title">In-Patient Feedback Record Submission</div>
+
+    <table class="meta-table">
+        <tr>
+            <td class="meta-label">Patient Name:</td>
+            <td>{{ feedback.full_name }}</td>
+            <td class="meta-label">Sex:</td>
+            <td>{{ feedback.sex }}</td>
+        </tr>
+        <tr>
+            <td class="meta-label">Bed No. :</td>
+            <td>{{ feedback.bed_no }}</td>
+            <td class="meta-label">IP Number:</td>
+            <td>{{ feedback.ip_number }}</td>
+        </tr>
+        <tr>
+            <td class="meta-label">Account User:</td>
+            <td>{{ feedback.user.username }}</td>
+            <td class="meta-label">Signature:</td>
+            <td>{{ feedback.Signature }}</td>
+        </tr>
+    </table>
+
+    <div class="section-header">❖ About Hospital</div>
+    Hi {{font_base64}}
+    <div class="record-row">
+        <div class="question">Hospital Sanitation</div>
+        <div class="answer">{{ feedback.hospital_sanitaion }}</div>
+    </div>
+    <div class="record-row">
+        <div class="question">Administration Cooperation</div>
+        <div class="answer">{{ feedback.care_co_opp_of_administrator }}</div>
+    </div>
+    <div class="record-row">
+        <div class="question">Promptness of Services</div>
+        <div class="answer">{{ feedback.promptness_of_service }}</div>
+    </div>
+
+    <div class="section-header">❖ About Medical Staff </div>
+    <div class="record-row">
+        <div class="question">Doctor Response </div>
+        <div class="answer">{{ feedback.doctor_response }}</div>
+    </div>
+    <div class="record-row">
+        <div class="question">Satisfied with Doctor's Explanations?</div>
+        <div class="answer">{{ feedback.satisfied_with_doctor_explanation }}</div>
+    </div>
+    <div class="record-row">
+        <div class="question">Satisfied with Nursing Actions?</div>
+        <div class="answer">{{ feedback.satisfied_by_nurse_service }}</div>
+    </div>
+    {% if feedback.if_no_specify_reason %}
+        <div class="open-response">
+            <strong>Reason for Dissatisfaction:</strong> {{ feedback.if_no_specify_reason }}
+        </div>
+    {% endif %}
+
+    <div class="section-header">❖ Overall Review Summary </div>
+    <div class="record-row">
+        <div class="question">Encountered issues during stay?</div>
+        <div class="answer">{{ feedback.problem_during_stay }}</div>
+    </div>
+    {% if feedback.if_yes_specify_reason %}
+        <div class="open-response">
+            <strong>Specified Issues Encountered:</strong> {{ feedback.if_yes_specify_reason }}
+        </div>
+    {% endif %}
+    <div class="record-row">
+        <div class="question">Overall Satisfaction Score</div>
+        <div class="answer">{{ feedback.satisfied_with_overall_aspect_of_hospital }}</div>
+    </div>
+    
+    {% if feedback.recommendation_for_hospital %}
+        <div class="section-header">❖ Recommendations & Suggestions </div>
+        <div class="open-response" style="margin-top: 5px;">
+            {{ feedback.recommendation_for_hospital }}
+        </div>
+    {% endif %}
+
+</body>
+</html>

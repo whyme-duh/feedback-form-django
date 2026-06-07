@@ -5,6 +5,7 @@ class FeedbackFormField(forms.ModelForm):
     
     class Meta:
         model = FeedbackForm
+        exclude = ["user"]
         fields = "__all__"
         widgets = {
             'sex': forms.RadioSelect,
@@ -48,5 +49,6 @@ class FeedbackFormField(forms.ModelForm):
                 if field.choices and field.choices[0][0] == '':
                     field.choices = field.choices[1:]
 
+    
 
     

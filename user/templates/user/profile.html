@@ -50,7 +50,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% if feedback %}
+                    {% if has_submitted %}
                     <tr>
                         <td><strong>#{{ feedback.id }}</strong></td>
                         <td>{{ feedback.full_name }}</td>
@@ -58,7 +58,7 @@
                         <td>{{ feedback.bed_no }}</td>
                         <td style="text-align: right;">
                             <a href="{% url 'download_feedback_pdf' feedback.id %}" class="btn-download">
-                                📥 Download PDF
+                                Download PDF
                             </a>
                         </td>
                     </tr>
@@ -66,6 +66,14 @@
                     <tr>
                         <td colspan="5" class="empty-state">
                             <p>You haven't submitted any feedback forms yet.</p>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="empty-state">
+                            <a href="{% url 'feedback' %}" class="btn-download">
+                                Fill the Form
+                            </a>
                         </td>
                     </tr>
                     {% endif %}

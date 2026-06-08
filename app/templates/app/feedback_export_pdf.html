@@ -14,14 +14,17 @@
             --sub-nepali: #5a738e;
             --border-color: #b0cddb;
         }
-        
-
-       
         .nepali, span {
             font-family: 'NotoSansDevanagari' !important;
         }
+        @font-face {
+            font-family: 'NotoSansDevanagari';
+            src: url('{{ nepali_font_path }}');
+        }
+        html, body, div, p, span, td, th, table, tr, h1, div.question-text, p.nepali {
+            font-family: 'NotoSansDevanagari', sans-serif !important;
+        }
         body {
-            font-family: 'NotoSansDevanagari','Helvetica Neue', Arial, sans-serif;
             color: var(--dark-text);
             line-height: 1.4;
             font-size: 11pt;
@@ -86,6 +89,17 @@
             border-left: 2px solid #b0cddb;
             font-style: italic;
         }
+        .footer-notice {
+            background-color: #eff6fa;
+            border: 1px solid #b0cddb;
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+            margin-top: 35px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .footer-notice p.nepali { color: #004b87; margin-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -99,51 +113,49 @@
 
     <table class="meta-table">
         <tr>
-            <td class="meta-label">Patient Name:</td>
+            <td class="meta-label">1. Name <span>(नाम)</span>:</td>
             <td>{{ feedback.full_name }}</td>
-            <td class="meta-label">Sex:</td>
+            <td class="meta-label">2. Sex <span>(लिङ्ग)</span>:</td>
             <td>{{ feedback.sex }}</td>
         </tr>
         <tr>
-            <td class="meta-label">Bed No. :</td>
+            <td class="meta-label">3. Bed No.:</td>
             <td>{{ feedback.bed_no }}</td>
-            <td class="meta-label">IP Number:</td>
+            <td class="meta-label">4. IP Number <span>(आई. पि. नं.)</span>:</td>
             <td>{{ feedback.ip_number }}</td>
         </tr>
         <tr>
-            <td class="meta-label">Account User:</td>
-            <td>{{ feedback.user.username }}</td>
-            <td class="meta-label">Signature:</td>
+           
+            <td class="meta-label">5. Signature <span>(हस्ताक्षर)</span>:</td>
             <td>{{ feedback.Signature }}</td>
         </tr>
     </table>
 
-    <div class="section-header">❖ About Hospital</div>
-    Hi {{font_base64}}
+    <div class="section-header">About Hospital <span>(हस्पिटलको बारेमा)</span></div>
     <div class="record-row">
-        <div class="question">Hospital Sanitation</div>
+        <div class="question">1. Hospital Sanitation <span>(सरसफाई)</span></div>
         <div class="answer">{{ feedback.hospital_sanitaion }}</div>
     </div>
     <div class="record-row">
-        <div class="question">Administration Cooperation</div>
+        <div class="question">2. Administration Cooperation <span>(प्रशासन व्यवहार)</span></div>
         <div class="answer">{{ feedback.care_co_opp_of_administrator }}</div>
     </div>
     <div class="record-row">
-        <div class="question">Promptness of Services</div>
+        <div class="question">3. Promptness of Services <span>(कार्यदक्षता)</span></div>
         <div class="answer">{{ feedback.promptness_of_service }}</div>
     </div>
 
-    <div class="section-header">❖ About Medical Staff </div>
+    <div class="section-header">About Medical Staff <span>(चिकित्सक तथा नर्सको बारेमा)</span></div>
     <div class="record-row">
-        <div class="question">Doctor Response </div>
+        <div class="question">1. Response of the Doctor <span>(डाक्टरको व्यवहार)</span></div>
         <div class="answer">{{ feedback.doctor_response }}</div>
     </div>
     <div class="record-row">
-        <div class="question">Satisfied with Doctor's Explanations?</div>
+        <div class="question">2. Were you satisfied with Doctor's explanation? <span>(चिकित्सकद्वारा दिईएको सल्लाहबाट तपाई सन्तुष्ट हुनुहुन्छ ?)</span></div>
         <div class="answer">{{ feedback.satisfied_with_doctor_explanation }}</div>
     </div>
     <div class="record-row">
-        <div class="question">Satisfied with Nursing Actions?</div>
+        <div class="question">3. Were you satisfied by nursing services? <span>(के तपाईं नर्सको सेवाबाट सन्तुष्ट हुनुहुन्छ?)</span></div>
         <div class="answer">{{ feedback.satisfied_by_nurse_service }}</div>
     </div>
     {% if feedback.if_no_specify_reason %}
@@ -151,28 +163,109 @@
             <strong>Reason for Dissatisfaction:</strong> {{ feedback.if_no_specify_reason }}
         </div>
     {% endif %}
-
-    <div class="section-header">❖ Overall Review Summary </div>
+    <div class="section-header">About Room <span>(कोठाको बारेमा)</span></div>
     <div class="record-row">
-        <div class="question">Encountered issues during stay?</div>
+        <div class="question">1. Sanitation of Room <span>(कोठाको सरसफाई)</span></div>
+        <div class="answer">{{ feedback.room_sanitation }}</div>
+    </div>
+    
+    <div class="record-row">
+        <div class="question">2. Bathroom Cleanliness <span>(शौचालयको सफाई)</span></div>
+        <div class="answer">{{ feedback.bathroom_cleanliness }}</div>
+    </div>
+    <div class="record-row">
+        <div class="question">3. Was everything in your room & rest room functioning Properly? <span>(के तपाईको कोठा र शौचालयको सबै साधनहरु चालु अवस्थामा थिए ?)</span></div>
+        <div class="answer">{{ feedback.everythin_clean_or_not }}</div>
+    </div>
+    
+    {% if feedback.if_not_room_clean %}
+        <div class="section-header">If Not, specify: / <span>(थिएन भने प्रष्ट पार्नुहोस्)</span></div>
+        <div class="open-response" style="margin-top: 5px;">
+            {{ feedback.if_not_room_clean }}
+        </div>
+    {% endif %}
+
+    <div class="section-header">About Emergency Services <span>(आकस्मिक सेवाको बारेमा)</span></div>
+    <div class="record-row">
+        <div class="question">1. Cleanliness of the ward <span>(वार्डको सरसफाई)</span></div>
+        <div class="answer">{{ feedback.ward_cleanliness }}</div>
+    </div>
+    
+    <div class="record-row">
+        <div class="question">2. Promptness of Service <span>(कार्यदक्षता)</span></div>
+        <div class="answer">{{ feedback.service_promptness_emegency_service }}</div>
+    </div>
+
+    <div class="section-header">About Ambulance Services <span>(एम्बुलेन्स सेवा बारे)</span></div>
+    <div class="record-row">
+        <div class="question">1. Did the Ambulance arrive on time? <span>(के एम्बुलेन्स सेवा तपाईलाई चाहिएको समयमा पुग्यो ?)</span></div>
+        <div class="answer">{{ feedback.arrival_of_ambulance }}</div>
+    </div>
+    
+    <div class="record-row">
+        <div class="question">2. Was the Ambulance internal service satisfactory? <span>(के एम्बुलेन्स सेवा तपाईलाई सन्तोषजनक पाउनुभयो ?)</span></div>
+        <div class="answer">{{ feedback.satisfaction_with_ambulance_internal_service }}</div>
+    </div>
+   
+    <div class="section-header">General Services <span>(सामान्य सेवाहरूको बारेमा)</span></div>
+    <div class="record-row">
+        <div class="question">1. Pharmacy <span>(औषधि बिक्रिवितरण कक्ष)</span></div>
+        <div class="answer">{{ feedback.pharmacy }}</div>
+    </div>
+    
+    <div class="record-row">
+        <div class="question">2. X-Ray/USG/ECHO/Pathology/Endoscopy/Physio <span>(एक्स-रे/युएसजी/ईको/प्याथोलोजी/इन्डोस्कोपी/फिजियो)</span></div>
+        <div class="answer">{{ feedback.x_ray_usg_echo_pathology_endoscopy_physio }}</div>
+    </div>
+    <div class="record-row">
+        <div class="question">3. ICU/O.T. <span>(आईसीयू/ओ.टी.)</span></div>
+        <div class="answer">{{ feedback.ICU_OT }}</div>
+    </div>
+    <div class="record-row">
+        <div class="question">4. Did you find any problem during your stay? <span>(उपचारको क्रममा तपाईलाई कुनै समस्या भयो ?)</span></div>
         <div class="answer">{{ feedback.problem_during_stay }}</div>
     </div>
+    
     {% if feedback.if_yes_specify_reason %}
-        <div class="open-response">
-            <strong>Specified Issues Encountered:</strong> {{ feedback.if_yes_specify_reason }}
+        <div class="section-header">If Yes, specify: / <span>(भएको भए प्रष्ट पार्नुहोस्)</span></div>
+        <div class="open-response" style="margin-top: 5px;">
+            {{ feedback.if_yes_specify_reason }}
+        </div>
+    {% endif %}
+
+    {% if feedback.if_yes_problem_solved_promptly_or_not %}
+        <div class="section-header">5. If yes, was the problem solved promptly? <span>(यदि भएको भए त्यसको तुरुन्त समाधान भयो ?)</span></div>
+        <div class="open-response" style="margin-top: 5px;">
+            {{ feedback.if_yes_problem_solved_promptly_or_not }}
+        </div>
+    {% endif %}
+
+    {% if feedback.satisfied_with_overall_aspect_of_hospital %}
+        <div class="section-header">6. Are you satisfied in overall aspects of the Hospital? <span>(के तपाई अस्पतालको सबै पक्षबाट सन्तुष्ट हुनुभयो ?)</span></div>
+        <div class="open-response" style="margin-top: 5px;">
+            {{ feedback.satisfied_with_overall_aspect_of_hospital }}
         </div>
     {% endif %}
     <div class="record-row">
-        <div class="question">Overall Satisfaction Score</div>
-        <div class="answer">{{ feedback.satisfied_with_overall_aspect_of_hospital }}</div>
+        <div class="question">7. Did you wish to tell about friendly staff/services area for outstanding services? <span>(के तपाई हाम्रो अस्पतालको कुनै उत्कृष्ट कर्मचारी/कार्यक्षेत्रको बारेमा भन्न चाहनुहुन्छ ?)</span></div>
+        <div class="answer">{{ feedback.would_you_share_or_not }}</div>
     </div>
-    
-    {% if feedback.recommendation_for_hospital %}
-        <div class="section-header">❖ Recommendations & Suggestions </div>
+    {% if feedback.sharing_with_friend_if_yes %}
+        <div class="section-header">If Yes, specify: / <span>(यदि चाहनुहुन्छ भने प्रष्ट पार्नुहोस्)</span></div>
+        <div class="open-response" style="margin-top: 5px;">
+            {{ feedback.sharing_with_friend_if_yes }}
+        </div>
+    {% endif %}
+    <div class="record-row">
+        <div class="question">8. How could we make you comfortable in Hospital, if any further suggestions? <span style="display:inline;">/ (हामीले तपाई बसाई कसरी व्यवस्थित पार्न सक्छौँ ? कुनै सुझावहरु भए दिनुहोस् । साथै अन्य समस्या भए प्रष्ट पारिदिनुहोस् ।)</span></div>
         <div class="open-response" style="margin-top: 5px;">
             {{ feedback.recommendation_for_hospital }}
         </div>
-    {% endif %}
-
+    </div>
+    <div class="footer-notice">
+        <p class="nepali">यो फारम भरेर आफ्नो अमूल्य सुझाव दिई अस्पताल सेवा सुधारमा सहयोग गर्न आग्रह गर्दछौँ ।</p>
+        <p>Thank you for choosing Everest Hospital</p>
+    </div>
+    
 </body>
 </html>

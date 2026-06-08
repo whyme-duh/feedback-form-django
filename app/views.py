@@ -1,9 +1,12 @@
+import os
+
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from app.forms import FeedbackFormField
 from django.contrib.auth.decorators import login_required
 from app.models import FeedbackForm
+from website import settings
 
 def home(request):
     return render(request, 'app/home.html')
@@ -31,6 +34,10 @@ def feedback_form(request):
 
 from django.template.loader import render_to_string
 from xhtml2pdf import pisa
+from xhtml2pdf.files import pisaFileObject
+from django.contrib.staticfiles import finders
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 
 @login_required
 def export_form_to_pdf(request, feedback_id):
@@ -39,14 +46,23 @@ def export_form_to_pdf(request, feedback_id):
         messages.error(request, "Sorry, you are not eligible to download it")
         return redirect('profile')
     
-    html_string = render_to_string('app/feedback_export_pdf.html', {'feedback' : feedback})
+    pisaFileObject.getNamedFile = lambda self: self.uri
 
-    response = HttpResponse(content_type ='application/pdf')
-    response['Content-Disposition'] = f'attachment; filename="Everest_Feedback_{feedback.id}.pdf"'
+    font_path = finders.find('font/Noto_Sans_Devanagari/static/NotoSansDevanagari-Regular.ttf')
 
-    pisa_status = pisa.CreatePDF(html_string, dest=response)
+    if not font_path:
+        font_path = os.path.join(settings.BASE_DIR, 'app', 'static', 'font', 'Noto_Sans_Devanagari', 'static', 'NotoSansDevanagari-Regular.ttf')
+    try:
+        font_path = font_path.replace('\\', '/')
+        pdfmetrics.registerFont(TTFont('NotoSansDevanagari', font_path))
+    except Exception as e:
+        pass
 
-    if pisa_status.err:
-           return HttpResponse("We ran into a formatting error", status=500)
+    
+    html_string = render_to_string('app/feedback_export_pdf.html', {'feedback': feedback, 'nepali_font_path': font_path})
 
+    response = HttpResponse(content_type ="application/pdf")
+    response["Content-Disposition"] = f'attachment; filename="Everest_Admin_Feedback_{feedback.id}.pdf"'
+    pisa.CreatePDF(html_string, dest=response, encoding='utf-8')
     return response
+

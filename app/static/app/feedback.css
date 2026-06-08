@@ -210,6 +210,12 @@
 .btn-submit:hover { background-color: var(--accent-blue); }
 
 @media (max-width: 768px) {
+    .container{
+        width:100%;
+    }
+    .form-content{
+        padding:0.5em;
+    }
     .meta-grid, .meta-row-2 { grid-template-columns: 1fr; gap: 15px; }
     .question-row { flex-direction: column; align-items: flex-start; gap: 12px; }
     .question-text, .pill-box-group { width: 100%; justify-content: flex-start; }

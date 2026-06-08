@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="field-wrapper">
-                <label>3. Bed No.</label>
+                <label>3. Bed No. / <span>बेड नं.:</span></label>
                 {% render_field form.bed_no class="input-text" %}
             </div>
         </div>
@@ -257,8 +257,7 @@
             <div class="question-text">5. If yes, was the problem solved promptly? <span>(यदि भएको भए त्यसको तुरुन्त समाधान भयो ?)</span></div>
             <div class="pill-box-group">
                 {% for radio in form.if_yes_problem_solved_promptly_or_not %}
-
-                    <div class="pill-item" data-toggle-group="find-any-problem" data-trigger-value="Yes" disabled="disabled">{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label">{{ radio.choice_label }}</label></div>
+                    <div class="pill-item" data-toggle-group="find-any-problem" data-trigger-value="Yes" disabled="disabled" >{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label" data-toggle-group="find-any-problem" data-trigger-value="Yes" disabled="disabled">{{ radio.choice_label }}</label></div>
                 {% endfor %}
             </div>
         </div>

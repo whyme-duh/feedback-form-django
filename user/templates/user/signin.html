@@ -20,6 +20,14 @@
             </div>
             <button type"submit" class="btn">Sign In</button>
         </form>
+        {% if form.errors %}
+        <div class="alert alert-danger">
+        {% for key, val in form.errors.items %}
+            <p>{{val}}</p>
+        {% endfor %}
+        </div>
+        {% else %}
+        {% endif %}
     </div>
 
 

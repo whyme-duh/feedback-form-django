@@ -175,5 +175,13 @@ footer {
     .hero p {
         font-size: 1rem;
     }
+    header{
+        flex-direction: column;
+        font-size: 0.75em;
+    }
+    nav{
+        justify-content: space-between;
+    }
+    
    
 }

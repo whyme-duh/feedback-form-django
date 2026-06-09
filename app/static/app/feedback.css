@@ -214,12 +214,27 @@
         width:100%;
     }
     .form-content{
-        padding:0.5em;
+        padding:1em;
     }
     .meta-grid, .meta-row-2 { grid-template-columns: 1fr; gap: 15px; }
-    .question-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .question-row { flex-direction: column; align-items: flex-start; gap: 12px; padding:0.25em;margin-block:0.5em;}
     .question-text, .pill-box-group { width: 100%; justify-content: flex-start; }
-    .pill-label { flex-grow: 1; }
+    /* .pill-box-group{
+        outline: 1px solid blue;
+    }
+    .pill-item{
+        outline: 1px solid green;
+
+    } */
+    .pill-label { 
+        min-width:20px;
+        flex-grow: 1; 
+    }
+    .already-submitted{
+        font-size:0.85em;
+        text-align: center;
+    }
+   
 }
 .already-submitted{
     margin-top:5em;

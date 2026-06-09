@@ -27,7 +27,10 @@
                 {% render_field form.password2 class="form-control" placeholder="Enter Password Again" type="password" %}
 
             </div>
-            {% if form.errors %}
+            
+            <button type="submit" class="btn" style="margin-top: 10px;">Sign Up</button>
+        </form>
+        {% if form.errors %}
               <div class="alert alert-danger">
                 {% for key, val in form.errors.items %}
                   <p>{{val}}</p>
@@ -35,8 +38,6 @@
               </div>
               {% else %}
               {% endif %}
-            <button type="submit" class="btn" style="margin-top: 10px;">Sign Up</button>
-        </form>
     </div>
     <div class="info-side" id="info-side">
         

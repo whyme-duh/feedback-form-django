@@ -169,7 +169,10 @@ main{
     color: var(--primary-blue);
 }
 
-
+.alert-danger{
+    color:red;
+    margin-top:1em;
+}
 
 @media (max-width: 768px) {
     .auth-container {

@@ -18,6 +18,8 @@ def sign_up(request):
 
 
 def profile(request):
+    if not request.user.is_authenticated:
+        return redirect('index')
 
     feedbacks = FeedbackForm.objects.filter(user = request.user)
 

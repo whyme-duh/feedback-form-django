@@ -119,7 +119,7 @@
             <td>{{ feedback.sex }}</td>
         </tr>
         <tr>
-            <td class="meta-label">3. Bed No.:</td>
+            <td class="meta-label">3. Bed No.: <span>(बेड नं.)</span></td>
             <td>{{ feedback.bed_no }}</td>
             <td class="meta-label">4. IP Number <span>(आई. पि. नं.)</span>:</td>
             <td>{{ feedback.ip_number }}</td>
@@ -159,9 +159,12 @@
         <div class="answer">{{ feedback.satisfied_by_nurse_service }}</div>
     </div>
     {% if feedback.if_no_specify_reason %}
+    <div class="record-row">
+        <div class="question">If No, specify: / <span>(थिएन भने प्रष्ट पार्नुहोस्)</span></div>
         <div class="open-response">
-            <strong>Reason for Dissatisfaction:</strong> {{ feedback.if_no_specify_reason }}
+            {{ feedback.if_no_specify_reason }}
         </div>
+    </div>
     {% endif %}
     <div class="section-header">About Room <span>(कोठाको बारेमा)</span></div>
     <div class="record-row">
@@ -179,10 +182,12 @@
     </div>
     
     {% if feedback.if_not_room_clean %}
-        <div class="section-header">If Not, specify: / <span>(थिएन भने प्रष्ट पार्नुहोस्)</span></div>
+    <div class="record-row">
+        <div class="question">If Not, specify: / <span>(थिएन भने प्रष्ट पार्नुहोस्)</span></div>
         <div class="open-response" style="margin-top: 5px;">
             {{ feedback.if_not_room_clean }}
         </div>
+    </div>
     {% endif %}
 
     <div class="section-header">About Emergency Services <span>(आकस्मिक सेवाको बारेमा)</span></div>
@@ -227,41 +232,80 @@
     </div>
     
     {% if feedback.if_yes_specify_reason %}
-        <div class="section-header">If Yes, specify: / <span>(भएको भए प्रष्ट पार्नुहोस्)</span></div>
+    <div class="record-row">
+        <div class="question">If Yes, specify: / <span>(भएको भए प्रष्ट पार्नुहोस्)</span></div>
         <div class="open-response" style="margin-top: 5px;">
             {{ feedback.if_yes_specify_reason }}
         </div>
+    </div>
     {% endif %}
-
     {% if feedback.if_yes_problem_solved_promptly_or_not %}
-        <div class="section-header">5. If yes, was the problem solved promptly? <span>(यदि भएको भए त्यसको तुरुन्त समाधान भयो ?)</span></div>
+    <div class="record-row">
+        <div class="question">5. If yes, was the problem solved promptly? <span>(यदि भएको भए त्यसको तुरुन्त समाधान भयो ?)</span></div>
         <div class="open-response" style="margin-top: 5px;">
             {{ feedback.if_yes_problem_solved_promptly_or_not }}
         </div>
-    {% endif %}
+    </div>
 
-    {% if feedback.satisfied_with_overall_aspect_of_hospital %}
-        <div class="section-header">6. Are you satisfied in overall aspects of the Hospital? <span>(के तपाई अस्पतालको सबै पक्षबाट सन्तुष्ट हुनुभयो ?)</span></div>
-        <div class="open-response" style="margin-top: 5px;">
+    <div class="record-row">
+        <div class="question">6. Are you satisfied in overall aspects of the Hospital? <span>(के तपाई अस्पतालको सबै पक्षबाट सन्तुष्ट हुनुभयो ?)</span></div>
+        <div class="answer">
             {{ feedback.satisfied_with_overall_aspect_of_hospital }}
         </div>
-    {% endif %}
+    </div>
     <div class="record-row">
         <div class="question">7. Did you wish to tell about friendly staff/services area for outstanding services? <span>(के तपाई हाम्रो अस्पतालको कुनै उत्कृष्ट कर्मचारी/कार्यक्षेत्रको बारेमा भन्न चाहनुहुन्छ ?)</span></div>
         <div class="answer">{{ feedback.would_you_share_or_not }}</div>
     </div>
-    {% if feedback.sharing_with_friend_if_yes %}
-        <div class="section-header">If Yes, specify: / <span>(यदि चाहनुहुन्छ भने प्रष्ट पार्नुहोस्)</span></div>
+    <div class="record-row">
+        <div class="question">If Yes, specify: / <span>(यदि चाहनुहुन्छ भने प्रष्ट पार्नुहोस्)</span></div>
         <div class="open-response" style="margin-top: 5px;">
-            {{ feedback.sharing_with_friend_if_yes }}
+            {% if feedback.sharing_with_friend_if_yes %}
+            {{feedback.sharing_with_friend_if_yes}}
+            {% else %}
+            N/A
+            {% endif %}
         </div>
-    {% endif %}
+    </div>
     <div class="record-row">
         <div class="question">8. How could we make you comfortable in Hospital, if any further suggestions? <span style="display:inline;">/ (हामीले तपाई बसाई कसरी व्यवस्थित पार्न सक्छौँ ? कुनै सुझावहरु भए दिनुहोस् । साथै अन्य समस्या भए प्रष्ट पारिदिनुहोस् ।)</span></div>
         <div class="open-response" style="margin-top: 5px;">
             {{ feedback.recommendation_for_hospital }}
         </div>
     </div>
+    {% else %}
+     <div class="record-row">
+        <div class="question">5. Are you satisfied in overall aspects of the Hospital? <span>(के तपाई अस्पतालको सबै पक्षबाट सन्तुष्ट हुनुभयो ?)</span></div>
+        <div class="answer">
+            {{ feedback.satisfied_with_overall_aspect_of_hospital }}
+        </div>
+    </div>
+    <div class="record-row">
+        <div class="question">6. Did you wish to tell about friendly staff/services area for outstanding services? <span>(के तपाई हाम्रो अस्पतालको कुनै उत्कृष्ट कर्मचारी/कार्यक्षेत्रको बारेमा भन्न चाहनुहुन्छ ?)</span></div>
+        <div class="answer">{{ feedback.would_you_share_or_not }}</div>
+    </div>
+    <div class="record-row">
+        <div class="question">If Yes, specify: / <span>(यदि चाहनुहुन्छ भने प्रष्ट पार्नुहोस्)</span></div>
+        <div class="open-response" style="margin-top: 5px;">
+            {% if feedback.sharing_with_friend_if_yes %}
+            {{feedback.sharing_with_friend_if_yes}}
+            {% else %}
+            "N/A"
+            {% endif %}
+        </div>
+    </div>
+    <div class="record-row">
+        <div class="question">7. How could we make you comfortable in Hospital, if any further suggestions? <span style="display:inline;">/ (हामीले तपाई बसाई कसरी व्यवस्थित पार्न सक्छौँ ? कुनै सुझावहरु भए दिनुहोस् । साथै अन्य समस्या भए प्रष्ट पारिदिनुहोस् ।)</span></div>
+        <div class="open-response" style="margin-top: 5px;">
+            {% if feedback.recommendation_for_hospital %}
+            {{ feedback.recommendation_for_hospital }}
+            {% else %}
+            N/A
+            {% endif %}
+
+        </div>
+    </div>
+    {% endif %}
     <div class="footer-notice">
         <p class="nepali">यो फारम भरेर आफ्नो अमूल्य सुझाव दिई अस्पताल सेवा सुधारमा सहयोग गर्न आग्रह गर्दछौँ ।</p>
         <p>Thank you for choosing Everest Hospital</p>

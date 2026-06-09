@@ -255,9 +255,9 @@
 
         <div class="question-row" style="margin-top: 15px;">
             <div class="question-text">5. If yes, was the problem solved promptly? <span>(यदि भएको भए त्यसको तुरुन्त समाधान भयो ?)</span></div>
-            <div class="pill-box-group">
+            <div class="pill-box-group" id="promptly-solved-row" data-toggle-group="find-any-problem" data-trigger-value="Yes">
                 {% for radio in form.if_yes_problem_solved_promptly_or_not %}
-                    <div class="pill-item" data-toggle-group="find-any-problem" data-trigger-value="Yes" disabled="disabled" >{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label" data-toggle-group="find-any-problem" data-trigger-value="Yes" disabled="disabled">{{ radio.choice_label }}</label></div>
+                    <div class="pill-item" >{{ radio.tag }}<label for="{{ radio.id_for_label }}" class="pill-label" >{{ radio.choice_label }}</label></div>
                 {% endfor %}
             </div>
         </div>
@@ -302,7 +302,7 @@
 </div>
  {% else %}
     <div class="already-submitted">
-        <h1>Thank you! You have already submitted this form.</h1>
+        <h1>You have already submitted this form. Thank you! </h1>
     </div>
     {% endif %}
 {% endblock %}

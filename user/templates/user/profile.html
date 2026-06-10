@@ -20,7 +20,7 @@
             </div>
             <div class="meta-item">
                 <label>Last Login</label>
-                <p style="font-size: 0.85rem; font-weight: normal;">{{ request.user.last_login|date:"M d, Y H:i" }}</p>
+                <p style="font-size: 0.85rem; font-weight: normal;">{{ request.user.last_login|date:"M d, Y H:i O"  }}</p>
             </div>
         </div>
         <form action = "{%url 'logout' %}" method = "POST">

@@ -136,3 +136,8 @@ LOGIN_REDIRECT_URL = 'profile'
 LOGOUT_REDIRECT_URL = 'signin'
 
 LOGIN_URL = 'signin'
+
+
+TIME_ZONE = 'Asia/Kathmandu'
+
+USE_TZ = True

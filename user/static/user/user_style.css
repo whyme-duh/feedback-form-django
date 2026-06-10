@@ -194,12 +194,7 @@ main{
     .info-side p {
         margin-bottom: 15px;
     }
-    .dashboard-container{
-        margin:0;
-        padding:0;
-        gap:0;
-
-    }
+    
 }
 .logout-btn {
     color: var(--sub-nepali);
@@ -408,8 +403,6 @@ main{
     padding: 40px 0;
     color: var(--sub-nepali);
 }
-
-/* Responsive Breakpoints */
 @media (max-width: 850px) {
     .dashboard-container { 
         display: flex;
@@ -433,5 +426,8 @@ main{
     }
     .history-table-wrapper{
         width:100%;
+    }
+    .btn-download{
+        text-align: center;
     }
 }

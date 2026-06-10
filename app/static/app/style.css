@@ -177,10 +177,14 @@ footer {
     }
     header{
         flex-direction: column;
-        font-size: 0.55em;
+        font-size: 0.75em;
+        padding:0;
+        padding-top:1em;
+
     }
     nav{
-        justify-content: space-between;
+        justify-content: center;
+        width:100%;
     }
     
    

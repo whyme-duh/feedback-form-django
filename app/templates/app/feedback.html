@@ -24,8 +24,18 @@
         <div class="meta-grid">
             <div class="field-wrapper">
                 <label>1. Name / <span>नाम:</span></label>
-                {% render_field form.full_name class="input-text" placeholder="Full Name" %}
+                {% if form.full_name.errors %}
+                    {% render_field form.full_name class="input-text is-invalid-input" placeholder="Enter your full name" %}
+                {% else %}
+                    {% render_field form.full_name class="input-text" placeholder="Enter your full name" %}
+                {% endif %}
+                <div class="alert alert-danger">
+                {% if form.errors.full_name %}
+                {{form.errors.full_name}}
+                {% endif %}
+                </div>
             </div>
+            
             <div class="field-wrapper">
                 <label>2. Sex / <span>लिङ्ग:</span></label>
                 <div class="pill-box-group" style="width: 100%; justify-content: flex-start; margin-top: 2px;">
@@ -290,7 +300,6 @@
             <label>8. How could we make you comfortable in Hospital, if any further suggestions? <span style="display:inline;">/ (हामीले तपाई बसाई कसरी व्यवस्थित पार्न सक्छौँ ? कुनै सुझावहरु भए दिनुहोस् । साथै अन्य समस्या भए प्रष्ट पारिदिनुहोस् ।)</span></label>
             {% render_field form.recommendation_for_hospital class="textarea-input" rows="4" %}
         </div>
-
         <div class="footer-notice">
             <p class="nepali">यो फारम भरेर आफ्नो अमूल्य सुझाव दिई अस्पताल सेवा सुधारमा सहयोग गर्न आग्रह गर्दछौँ ।</p>
             <p>Thank you for choosing Everest Hospital</p>
@@ -298,6 +307,7 @@
 
         <button type="submit" class="btn-submit">Submit Internal Feedback Document</button>
     </form>
+    
    
 </div>
  {% else %}

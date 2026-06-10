@@ -1,6 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 
+
+alphabetic_validator = RegexValidator(
+    regex=r'^[a-zA-Z]+$',
+    message = "Only alphabetic characters are allowed.",
+    code = 'invalid_alphabet'
+)
 
 class FeedbackForm(models.Model):
     GENDER_CHOICES = [
@@ -22,9 +29,9 @@ class FeedbackForm(models.Model):
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank = False, null = False)
-    full_name = models.CharField(max_length=100, blank = False)
+    full_name = models.CharField(max_length=100, blank = False,validators=[alphabetic_validator] )
     sex = models.CharField(choices = GENDER_CHOICES, blank = False)
-    bed_no = models.IntegerField(blank = False)
+    bed_no = models.CharField(max_length=5, blank = False)
     ip_number = models.IntegerField(blank = False)
     Signature = models.CharField(max_length=50, blank = False)
 
